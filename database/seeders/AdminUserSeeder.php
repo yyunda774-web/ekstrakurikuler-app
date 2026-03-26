@@ -13,7 +13,7 @@ class AdminUserSeeder extends Seeder
             [
                 'name' => 'Administrator',
                 'email' => 'admin@ekstrakurikuler.com',
-                'password' => '$2y$12$XLr3ieUshv/6O4sLvuDgHu8dtcHJDBfmW5trRBlz7iH1Cx3cemEra',
+                'password' => Hash::make('12345678'),
                 'role' => 'admin',
                 'phone' => '085878282854'
             ],
