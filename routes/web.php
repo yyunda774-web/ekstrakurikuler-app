@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
+
 
 use App\Models\User;
 use App\Models\Ekstrakurikuler;
@@ -250,6 +252,11 @@ Route::get('/pendaftaran-sukses/{kode}', function ($kode) {
     return view('pendaftaran-sukses', compact('pendaftaran'));
 
 })->name('pendaftaran.sukses');
+
+Route::get('/force-migrate', function () {
+    Artisan::call('migrate', ['--force' => true]);
+    return 'MIGRATION DONE ✅';
+});
 
 
 require __DIR__.'/auth.php';
