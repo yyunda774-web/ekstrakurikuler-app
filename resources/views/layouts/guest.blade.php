@@ -18,116 +18,120 @@
 <style>
 
 :root{
---primary:#4361ee;
---secondary:#3a0ca3;
---student:#0ea5e9;
---admin:#ef4444;
+--primary:#4f46e5;
+--dark:#111827;
+--light:#f9fafb;
+--border:#e5e7eb;
 }
 
+/* RESET */
 body{
+margin:0;
 font-family:'Figtree',sans-serif;
-background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+background:#f3f4f6;
+}
+
+/* LAYOUT */
+.auth-wrapper{
+display:flex;
 min-height:100vh;
+}
+
+/* LEFT SIDE */
+.auth-left{
+flex:1;
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+color:white;
 display:flex;
 flex-direction:column;
-}
-
-.login-container{
-flex:1;
-display:flex;
-align-items:center;
 justify-content:center;
-padding:20px;
-}
-
-.login-card{
-background:white;
-border-radius:20px;
-box-shadow:0 25px 70px rgba(0,0,0,0.15);
-width:100%;
-max-width:470px;
-overflow:hidden;
-}
-
-.login-header{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-color:white;
-padding:2rem;
+align-items:center;
+padding:40px;
 text-align:center;
 }
 
-.login-header h2{
+.auth-left h1{
+font-size:2rem;
 font-weight:700;
+margin-bottom:10px;
 }
 
-.login-body{
-padding:2rem;
+.auth-left p{
+opacity:0.85;
+max-width:300px;
 }
 
-.login-type{
+/* RIGHT SIDE */
+.auth-right{
+flex:1;
 display:flex;
-gap:10px;
+justify-content:center;
+align-items:center;
+padding:30px;
+}
+
+/* CARD */
+.auth-card{
+background:white;
+padding:35px;
+border-radius:16px;
+width:100%;
+max-width:380px;
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+.auth-card h3{
+font-weight:600;
 margin-bottom:20px;
 }
 
-.login-option{
-flex:1;
-padding:10px;
-border-radius:10px;
-font-size:0.9rem;
-font-weight:600;
-text-align:center;
-background:#f1f5f9;
-}
-
-.login-option.admin{
-color:var(--admin);
-}
-
-.login-option.siswa{
-color:var(--student);
-}
-
+/* INPUT */
 .form-control{
 border-radius:10px;
-border:2px solid #e2e8f0;
-padding:12px 15px;
-font-size:0.95rem;
+border:1px solid var(--border);
+padding:12px;
+font-size:0.9rem;
 }
 
 .form-control:focus{
 border-color:var(--primary);
-box-shadow:0 0 0 3px rgba(67,97,238,0.1);
+box-shadow:none;
 }
 
+/* BUTTON */
 .btn-login{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
+background:var(--primary);
 color:white;
 border:none;
 padding:12px;
-font-weight:600;
 border-radius:10px;
+font-weight:600;
 width:100%;
-transition:.3s;
+transition:.2s;
 }
 
 .btn-login:hover{
-transform:translateY(-2px);
-box-shadow:0 6px 18px rgba(0,0,0,0.15);
+background:#4338ca;
 }
 
-.footer{
-background:rgba(255,255,255,0.9);
-backdrop-filter:blur(10px);
-border-top:1px solid rgba(0,0,0,0.08);
-padding:1rem;
+/* FOOT */
+.auth-footer{
 text-align:center;
-font-size:.85rem;
-color:#666;
+margin-top:20px;
+font-size:0.85rem;
 }
 
-.footer small{
-color:#888;
+.auth-footer a{
+text-decoration:none;
+color:var(--primary);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.auth-left{
+display:none;
+}
 }
 
 </style>
@@ -135,86 +139,44 @@ color:#888;
 
 <body>
 
-<div class="login-container">
+<div class="auth-wrapper">
 
-<div class="login-card">
+    <!-- LEFT -->
+    <div class="auth-left">
+        <h1>
+            <i class="fas fa-school"></i><br>
+            Sistem Ekstrakurikuler
+        </h1>
+        <p>
+            Kelola dan daftar kegiatan ekstrakurikuler sekolah secara online dengan mudah dan cepat.
+        </p>
+    </div>
 
-<div class="login-header">
+    <!-- RIGHT -->
+    <div class="auth-right">
 
-<h2 class="mb-1">
-<i class="fas fa-school me-2"></i>
-Sistem Ekstrakurikuler
-</h2>
+        <div class="auth-card">
 
-<p class="opacity-75 mb-0">
-Pendaftaran Ekstrakurikuler Online
-</p>
+            <h3 class="text-center">Login</h3>
 
-</div>
+            @yield('content')
 
+            <div class="auth-footer">
+                <p>
+                    Belum punya akun?
+                    <a href="{{ route('register') }}">Daftar</a>
+                </p>
 
-<div class="login-body">
+                <a href="{{ route('password.request') }}">Lupa password?</a>
+                <br>
+                <a href="{{ route('home') }}">← Kembali</a>
+            </div>
 
-<!-- pembeda login -->
-<div class="login-type">
+        </div>
 
-<div class="login-option siswa">
-<i class="fas fa-user-graduate"></i>
-Login Siswa
-</div>
-
-<div class="login-option admin">
-<i class="fas fa-user-shield"></i>
-Login Admin
-</div>
-
-</div>
-
-
-<!-- FORM LOGIN -->
-@yield('content')
-
-
-<div class="text-center mt-4 pt-3 border-top">
-
-<p class="text-muted mb-2">
-Belum punya akun?
-<a href="{{ route('register') }}" class="fw-semibold text-primary">
-Daftar di sini
-</a>
-</p>
-
-<a href="{{ route('password.request') }}" class="text-muted">
-Lupa password?
-</a>
-
-<span class="mx-2">|</span>
-
-<a href="{{ route('home') }}" class="text-muted">
-Kembali ke beranda
-</a>
+    </div>
 
 </div>
-
-</div>
-</div>
-</div>
-
-
-<footer class="footer">
-
-<p class="mb-0">
-&copy; {{ date('Y') }} Sistem Pendaftaran Ekstrakurikuler
-</p>
-
-<small>
-SMK Contoh Sekolah • admin@sekolah.sch.id
-</small>
-
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
